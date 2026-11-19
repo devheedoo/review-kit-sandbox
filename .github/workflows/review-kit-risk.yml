@@ -25,7 +25,7 @@ jobs:
     with:
       # 이 저장소에서 사람이 꼭 봐야 하는 경로 (금액·인증·결제·데이터 삭제 등). 공백·줄바꿈 구분.
       # TODO: 채우기 전에는 공통 high 경로만 적용된다. 예) src/payment/* src/auth/*
-      high-paths: ""
+      high-paths: "src/pay.js"
       # 문서·화면 문구처럼 위험이 낮은 경로. 예) *.md src/copy.ts
       low-paths: "*.md"
       # 변경 줄 수 합계(lockfile 제외)가 이 값을 넘으면 high
