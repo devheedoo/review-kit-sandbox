@@ -1,0 +1,28 @@
+# gh review-kit init이 만든 파일. 검증 로직은 devheedoo/gh-review-kit에 있다.
+# 이 저장소에서 정할 것은 아래 with: 값뿐이다. 이 파일을 고치는 PR은 risk:high로 분류된다.
+name: review-kit-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# 같은 PR에 새 커밋이 올라오면 이전 실행은 취소한다. 기본 브랜치 push는 취소하지 않는다.
+concurrency:
+  group: review-kit-ci-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  review-kit-ci:
+    uses: devheedoo/gh-review-kit/.github/workflows/ci.yml@v1
+    with:
+      package-manager: npm
+      node-version: "22"
+      # package.json의 script 이름, 줄마다 하나씩. PR 전에 로컬에서도 같은 명령을 돌린다.
+      commands: |
+        lint
+        test
+        build
