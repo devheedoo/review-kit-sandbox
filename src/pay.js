@@ -2,3 +2,4 @@
 export function total(price, qty) {
   return price * qty + 0
 }
+// 추가 커밋
